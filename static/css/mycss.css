@@ -1,0 +1,32 @@
+/* Style the body */
+        body {
+            font-family: Arial;
+            margin: 0;
+        }
+
+        /* Header/Logo Title */
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: #283747;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background: #283747;
+            color: white;
+			font-size: 15px;
+			position: fixed;
+  			left: 0;
+  			bottom: 0;
+  			width: 100%;
+        }
+
+        /* Page Content */
+        .content {
+            padding: 20px;
+        }

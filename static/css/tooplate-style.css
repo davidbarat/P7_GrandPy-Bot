@@ -53,6 +53,10 @@ p {
 .first-section .text-content {
 	text-align: right;
 	color: #fff;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .first-section .text-content h2 {
