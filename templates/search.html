@@ -10,31 +10,6 @@
     <link rel="stylesheet" href="../static/css/mycss.css">
 </head>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    function Search() {
-        console.log("methode search")
-        var data = $("#inputSearch").val();
-        $.ajax({
-            url: "../classes.py",
-            type: "POST",
-            dataType: "json",
-            success: function (data) {
-                var row = "";
-                $.each(data, function (index, value) {
-                    console.log(data);
-                    row += "<tr> < td > " + data + "</td > </tr > ";
-                    $("#bod").html(row);
-                });
-            }
-        });
-        console.log(data);
-        data = $("#inputSearch").val("");
-        $("#inputSearch").focus();
-        return data.responseText;
-    }
-</script>
-
 <body>
 
     <div class="header">
@@ -68,7 +43,6 @@
         <p>David Barat</p>
         <a href="https://github.com/davidbarat/P7_GrandPy-Bot" target="_blank">Lien Git</a>
     </div>
-
 
 </body>
 
