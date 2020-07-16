@@ -14,24 +14,20 @@
 <script>
     function Search() {
         console.log("methode search")
-        var data = $("#inputSearch").val();
+        var input_data = $("#inputSearch").val();
         $.ajax({
-            url: "../classes.py",
+            url: "search",
             type: "POST",
-            dataType: "json",
-            success: function (data) {
-                var row = "";
-                $.each(data, function (index, value) {
-                    console.log(data);
-                    row += "<tr> < td > " + data + "</td > </tr > ";
-                    $("#bod").html(row);
-                });
+            data: input_data,
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (error) {
+                console.log(error);
             }
         });
         console.log(data);
-        data = $("#inputSearch").val("");
-        $("#inputSearch").focus();
-        return data.responseText;
+        return data;
     }
 </script>
 

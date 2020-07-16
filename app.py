@@ -1,26 +1,25 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask import render_template
 from flask import request
+from classes import get_test
 
 app = Flask(__name__)
 
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
-
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def index():
-    """ Displays the index page accessible at '/'
-    """
+    # if request.method == "POST":
+        # input_data = request.get_data()
+        # get_test(input_data)
     return render_template('index.html')
 
-@app.route('/search/', methods=['GET','POST'])
+@app.route('/search', methods=['GET','POST'])
 def test():
-    # clicked = None
     if request.method == "POST":
-        clicked = request.json['data']
-    return render_template('search.html')
+        # print(request.json['data'])
+        input_data = request.get_data()
+        get_test(input_data)
+        print("search")
+        return render_template('search.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -9,14 +9,14 @@ import json
 from boto.s3.connection import S3Connection
 import os
 
-api_google_key = S3Connection(os.environ['api_google_key'])
+# api_google_key = S3Connection(os.environ['api_google_key'])
 
-# api_google_key = "AIzaSyAm4J19gegHgeTzeZvg7g9MznXGdkVoivU"
+api_google_key = "AIzaSyAm4J19gegHgeTzeZvg7g9MznXGdkVoivU"
 
 gmaps.configure(api_key=api_google_key)
 
-new_york_coordinates = (40.75, -74.00)
-fig = gmaps.figure(center=new_york_coordinates, zoom_level=12)
+ecouen_coordinates = (49.02062, 2.38309)
+fig = gmaps.figure(center=ecouen_coordinates, zoom_level=12)
 
 embed_minimal_html('/Users/david/OpenClassrooms/P7/grandpy/P7_GrandPy-Bot/static/img/export.html', views=[fig])
 
@@ -34,6 +34,7 @@ def test_get_response_api_googlemaps():
      response = requests.get(url_maps + parameters)
      assert response.status_code == 200
      response = requests.get(url_maps_json + parameters + '&key=' + api_google_key)
+     print(response)
      # assert response_body["places"][0]["place name"] == "Beverly Hills"
      # response_body = response.json()
      # print(response.json())
