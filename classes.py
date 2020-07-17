@@ -2,7 +2,7 @@ import os
 import sys
 import cgi
 import json
-import request
+# import request
 
 
 # sys.stdout.write("Content-Type: application/json")

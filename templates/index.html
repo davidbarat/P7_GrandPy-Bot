@@ -14,11 +14,11 @@
 <script>
     function Search() {
         console.log("methode search")
-        var input_data = $("#inputSearch").val();
+        var data = $("#inputSearch").val();
         $.ajax({
             url: "search",
             type: "POST",
-            data: input_data,
+            data: data,
             success: function (response) {
                 console.log(response);
             },
