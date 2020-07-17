@@ -11,7 +11,6 @@ import os
 
 # api_google_key = S3Connection(os.environ['api_google_key'])
 
-api_google_key = "AIzaSyAm4J19gegHgeTzeZvg7g9MznXGdkVoivU"
 
 gmaps.configure(api_key=api_google_key)
 
@@ -25,7 +24,6 @@ embed_minimal_html('/Users/david/OpenClassrooms/P7/grandpy/P7_GrandPy-Bot/static
 # Location where you want to save your file.
 # gmap.draw("/Users/david/OpenClassrooms/P7/grandpy/tests/map11.html")
 
-api_google_key = "AIzaSyAm4J19gegHgeTzeZvg7g9MznXGdkVoivU"
 
 url_maps = 'https://www.google.com/maps/search/?api=1&'
 parameters = 'ecouen'
