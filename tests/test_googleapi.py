@@ -1,7 +1,7 @@
 import pytest
 import requests
-import gmap
-import gmplot
+# import gmap
+# import gmplot
 import gmaps
 from ipywidgets.embed import embed_minimal_html
 import wikipedia
@@ -11,13 +11,14 @@ import os
 
 # api_google_key = S3Connection(os.environ['api_google_key'])
 
+api_gmap_key = (os.environ['api_google_key'])
+# print(api_gmap_key)
+gmaps.configure(api_key=api_gmap_key)
 
-gmaps.configure(api_key=api_google_key)
+# ecouen_coordinates = (49.02062, 2.38309)
+# fig = gmaps.figure(center=ecouen_coordinates, zoom_level=12)
 
-ecouen_coordinates = (49.02062, 2.38309)
-fig = gmaps.figure(center=ecouen_coordinates, zoom_level=12)
-
-embed_minimal_html('/Users/david/OpenClassrooms/P7/grandpy/P7_GrandPy-Bot/static/img/export.html', views=[fig])
+# embed_minimal_html('/Users/david/OpenClassrooms/P7/grandpy/P7_GrandPy-Bot/static/img/export.html', views=[fig])
 
 # gmap.apikey = key
 # gmap = gmplot.GoogleMapPlotter(40.75, -74.00, 18)
@@ -31,7 +32,7 @@ url_maps_json = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 def test_get_response_api_googlemaps():
      response = requests.get(url_maps + parameters)
      assert response.status_code == 200
-     response = requests.get(url_maps_json + parameters + '&key=' + api_google_key)
+     response = requests.get(url_maps_json + parameters + '&key=' + api_gmap_key)
      print(response)
      # assert response_body["places"][0]["place name"] == "Beverly Hills"
      # response_body = response.json()
