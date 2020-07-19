@@ -3,7 +3,7 @@
 
 # Mini example of Flask and Pytest
 
-![Actions Workflow](https://github.com/davidbarat/P7_GrandPy-Bot/Flask/badge.svg)
+![Actions Workflow](https://travis-ci.com/davidbarat/P7_GrandPy-Bot.svg?branch=master)
 
 
 ## Setup
