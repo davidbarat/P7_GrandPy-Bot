@@ -16,8 +16,8 @@
         console.log("methode search")
         var data = $("#inputSearch").val();
         $.ajax({
-            url: "search",
             type: "POST",
+            url: "search",
             data: data,
             success: function (response) {
                 console.log(response);
@@ -28,6 +28,28 @@
         });
         console.log(data);
         return data;
+    }
+    function checkEnter(e) {
+        var characterCode
+
+        if (e && e.which) { //if which property of event object is supported (NN4)
+            e = e
+            characterCode = e.which //character code is contained in NN4's which property
+        }
+        else {
+            e = event
+            characterCode = e.keyCode //character code is contained in IE's keyCode property
+        }
+
+        if (characterCode == 13) {
+            document.forms[0].submit()
+            Search()
+            return false
+        }
+        else {
+            return true
+        }
+
     }
 </script>
 
@@ -49,8 +71,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <fieldset>
-                        <input name="inputSearch" type="text" class="form-control" id="inputSearch"
-                            placeholder="Your search..." required="">
+                        <input name="inputSearch" type="text" onKeyPress="checkEnter(event)" class=" form-control"
+                            id="inputSearch" placeholder="Your search..." required="">
                         <button id="Searchbutton" type="button" name="Searchbutton" onclick="Search()">
                             Search
                         </button>

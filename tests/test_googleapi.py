@@ -13,7 +13,7 @@ import os
 
 api_gmap_key = (os.environ['api_google_key'])
 # print(api_gmap_key)
-gmaps.configure(api_key=api_gmap_key)
+# gmaps.configure(api_key=api_gmap_key)
 
 # ecouen_coordinates = (49.02062, 2.38309)
 # fig = gmaps.figure(center=ecouen_coordinates, zoom_level=12)
@@ -27,6 +27,8 @@ gmaps.configure(api_key=api_gmap_key)
 
 
 url_maps = 'https://www.google.com/maps/search/?api=1&'
+
+url = "https://maps.googleapis.com/maps/api/staticmap?"
 parameters = 'ecouen'
 url_maps_json = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 def test_get_response_api_googlemaps():
