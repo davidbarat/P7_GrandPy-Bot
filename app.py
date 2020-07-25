@@ -1,9 +1,10 @@
 from flask import Flask, url_for
 from flask import render_template
 from flask import request
-from classes import api_google
-from classes import parser
-from classes import api_wikipedia
+from api import ApiGoogle
+from parser import Parser
+from api import ApiWikipedia
+import sys
 
 
 app = Flask(__name__)
@@ -15,11 +16,15 @@ def index():
 @app.route('/search', methods=['GET','POST'])
 def search():
     if request.method == "POST":
+        clean_data = ''
         search_post = request.get_data()
-        my_apigoogle = api_google()
+        # print('search_post -> ' + (search_post.decode('ascii')) )
+        my_apigoogle = ApiGoogle()
         my_apigoogle.init_api_maps()
 
-        my_apigoogle.search_api_google(search_post)
+        myparser = Parser()
+        clean_data = myparser.delete_stopwords(search_post.decode('ascii'))
+        my_apigoogle.search_api_google(clean_data)
         return render_template('search.html')
 
 

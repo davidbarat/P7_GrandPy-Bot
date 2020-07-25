@@ -8,5 +8,7 @@ stops = [
     'pour','pourquoi', 'quand', 'que', 'quel', 'quelle', 'quelles', 'quels', 'qui', 'sa', 'sans', 'ses',
     'seulement', 'si', 'sien', 'son', 'sont', 'sous', 'soyez','sujet','sur','ta','tandis',
     'tellement','tels','tes','ton','tous','tout','trop','très','tu','voient','vont','votre','vous',
-    'vu','ça','étaient','état','étions','été','être'
+    'vu','ça','étaient','état','étions','été','être','je','tu','cherche',"l'adresse",'papy','grandpy',
+    'accord','car','trouve','lieu','endroit','question','loin','?','.','!','/','hello','hey','mec',
+    'est-ce',"d'","l'",'salut','connais','connait','adresse'
 ]

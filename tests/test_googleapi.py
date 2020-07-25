@@ -8,6 +8,7 @@ import wikipedia
 import json
 from boto.s3.connection import S3Connection
 import os
+import geojson
 
 # api_google_key = S3Connection(os.environ['api_google_key'])
 

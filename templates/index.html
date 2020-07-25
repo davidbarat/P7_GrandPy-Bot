@@ -19,6 +19,7 @@
             type: "POST",
             url: "search",
             data: data,
+            dataType: 'text',
             success: function (response) {
                 console.log(response);
             },
@@ -73,9 +74,6 @@
                     <fieldset>
                         <input name="inputSearch" type="text" onKeyPress="checkEnter(event)" class=" form-control"
                             id="inputSearch" placeholder="Your search..." required="">
-                        <button id="Searchbutton" type="button" name="Searchbutton" onclick="Search()">
-                            Search
-                        </button>
                     </fieldset>
                 </div>
             </div>

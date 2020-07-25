@@ -8,17 +8,11 @@ from stop_words import stops
 from boto.s3.connection import S3Connection
 
 
-class parser():
-
-    def init_stopword(self, input_data):
-        print(input_data)
-
-
-class api_google():
+class ApiGoogle():
 
     def init_api_maps(self):
     
-        if 'api_google_key' in os.environ['api_google_key']:
+        if 'api_google_key' in os.environ:
             self.api_google_key = os.environ['api_google_key']
         else:
             self.api_google_key = S3Connection(os.environ['api_google_key'])
@@ -32,8 +26,8 @@ class api_google():
 
         self.r = requests.get(
             self.url + "center=" + str(search_post) + "&zoom=" +
-            str(self.zoom) + "&size=400x400" + "&key=" +
-            self.api_google_key
+            str(self.zoom) + "&size=400x400" + "&markers=color:red" + "&key="
+            + self.api_google_key
             ) 
 
         self.f = open(
@@ -44,7 +38,7 @@ class api_google():
 
         
 
-class api_wikipedia():
+class ApiWikipedia():
 
-    def init(self):
+    def __init__(self):
         print('test')
