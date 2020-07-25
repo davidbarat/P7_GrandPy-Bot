@@ -36,7 +36,6 @@ class ApiGoogle():
         self.f.write(self.r.content) 
         self.f.close() 
 
-        
 
 class ApiWikipedia():
 

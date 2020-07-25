@@ -36,7 +36,7 @@ def test_get_response_api_googlemaps():
      response = requests.get(url_maps + parameters)
      assert response.status_code == 200
      response = requests.get(url_maps_json + parameters + '&key=' + api_gmap_key)
-     print(response)
+     # print(response)
      # assert response_body["places"][0]["place name"] == "Beverly Hills"
      # response_body = response.json()
      # print(response.json())
