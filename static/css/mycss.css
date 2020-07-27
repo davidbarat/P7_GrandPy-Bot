@@ -10,7 +10,7 @@
             text-align: center;
             background: #283747;
             color: white;
-            font-size: 20px;
+            font-size: 100px;
         }
 
         /* Footer */
@@ -29,4 +29,9 @@
         /* Page Content */
         .content {
             padding: 20px;
+        }
+
+        /* Map */
+        .map {
+            height: 50px;
         }

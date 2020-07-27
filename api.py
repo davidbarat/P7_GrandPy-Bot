@@ -2,7 +2,6 @@ import os
 import sys
 import cgi
 import json
-# import gmaps
 import requests
 from stop_words import stops
 from boto.s3.connection import S3Connection
@@ -10,34 +9,29 @@ from boto.s3.connection import S3Connection
 
 class ApiGoogle():
 
-    def init_api_maps(self):
+    def __init__(self):
     
         if 'api_google_key' in os.environ:
             self.api_google_key = os.environ['api_google_key']
         else:
             self.api_google_key = S3Connection(os.environ['api_google_key'])
         
-        # gmaps.configure(api_key=self.api_google_key)
-        self.url =  "https://maps.googleapis.com/maps/api/staticmap?"
-        self.zoom = 17
+        self.url = "https://maps.googleapis.com/maps/api/geocode/json?"
 
-    
     def search_api_google(self, search_post):
 
-        self.r = requests.get(
-            self.url + "center=" + str(search_post) + "&zoom=" +
-            str(self.zoom) + "&size=400x400" + "&markers=color:red" + "&key="
-            + self.api_google_key
-            ) 
-
-        self.f = open(
-            '/Users/david/OpenClassrooms/P7/grandpy/P7_GrandPy-Bot/tests/test.png', 
-            'wb') 
-        self.f.write(self.r.content) 
-        self.f.close() 
+        self.response = requests.get(
+            self.url + "address=" + str(search_post) + "&key=" + 
+            self.api_google_key)
+    
+        self.response_json = self.response.json()
+        self.lat = self.response_json['results'][0]['geometry']['location']['lat']
+        self.lng = self.response_json['results'][0]['geometry']['location']['lng']
+        return(self.lat, self.lng)
 
 
 class ApiWikipedia():
 
     def __init__(self):
-        print('test')
+
+        self.url_wiki = "https"

@@ -5,28 +5,36 @@ from api import ApiGoogle
 from parser import Parser
 from api import ApiWikipedia
 import sys
+import json
 
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+dict_response = {}
+
+@app.route('/', methods=['GET','POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', dict_response = dict_response)
 
 @app.route('/search', methods=['GET','POST'])
 def search():
+    my_apigoogle = ApiGoogle()
+    myparser = Parser()
+    # dict_response = {}
     if request.method == "POST":
         clean_data = ''
         search_post = request.get_data()
-        # print('search_post -> ' + (search_post.decode('ascii')) )
-        my_apigoogle = ApiGoogle()
-        my_apigoogle.init_api_maps()
-
-        myparser = Parser()
+        clean_search_post = search_post.decode('ascii')
+        dict_response['search'] = clean_search_post
+        
         clean_data = myparser.delete_stopwords(search_post.decode('ascii'))
-        my_apigoogle.search_api_google(clean_data)
-        return render_template('search.html')
+        # a revoir moche le [0]
+        dict_response['lat'], dict_response['lng'] = my_apigoogle.search_api_google(
+            clean_data[0])
+        print(dict_response)
+        return render_template('index.html', dict_response = dict_response)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
