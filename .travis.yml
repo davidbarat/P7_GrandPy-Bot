@@ -4,8 +4,9 @@ python:
 install:
 - pip install -r requirements.txt
 deploy:
-  provider: heroku
+- provider: heroku
   edge: true
+
 script:
 - export api_google_key=$api_google_key
 - pytest

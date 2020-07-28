@@ -1,6 +1,6 @@
 /* Style the body */
         body {
-            font-family: Arial;
+            font-family: Verdana;
             margin: 0;
         }
 
@@ -31,7 +31,7 @@
             padding: 20px;
         }
 
-        /* Map */
-        .map {
+        /*  Google Map */
+        .googlemap {
             height: 50px;
         }
