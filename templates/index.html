@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>GrandPy</title>
@@ -11,52 +11,11 @@
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    function Search() {
-        console.log("methode search")
-        var data = $("#inputSearch").val();
-        $.ajax({
-            type: "POST",
-            url: "search",
-            data: data,
-            dataType: 'text',
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-        console.log(data);
-        return data;
-    }
-    function checkEnter(e) {
-        var characterCode
-
-        if (e && e.which) { //if which property of event object is supported (NN4)
-            e = e
-            characterCode = e.which //character code is contained in NN4's which property
-        }
-        else {
-            e = event
-            characterCode = e.keyCode //character code is contained in IE's keyCode property
-        }
-
-        if (characterCode == 13) {
-            document.forms[0].submit()
-            Search()
-            initMap()
-            return false
-        }
-        else {
-            return true
-        }
-
-    }
+<script src="../static/js/script.js"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=API&callback=initMap">
 </script>
 
 <body>
-
     <div class="header">
         <div class="row">
             <div class="col-md-2">
@@ -67,42 +26,10 @@
             </div>
         </div>
     </div>
-
-    <div class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <table>
-                    {% for result in dict_response.values() %}
-                    <tr>
-                        <td>Moi : {{ result }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    </div>
-
     <div class="googlemap">
         <div class="row">
-            <div class="col-md-12">
-                <div id="map"></div>
-                <script type="text/javascript">
-                    var map;
-                    function initMap() {
-                        console.log(initMap)
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: {
-                                lat: 49.018834,
-                                lng: 2.378926
-                            },
-                            zoom: 14
-                        });
-                        console.log("map function");
-                        console.log(map);
-                    }
-                </script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=API&callback=initMap" async defer></script>
+            <div class="col-md-8">
+                <div id="map" class="googlemap"></div>
             </div>
         </div>
     </div>
@@ -111,8 +38,9 @@
         <div class="row">
             <div class="col-md-4">
                 <fieldset>
-                    <input name="inputSearch" type="text" onKeyPress="checkEnter(event)" class=" form-control"
+                    <input name="inputSearch" type="text" onKeyPress="checkEnter(event);" class=" form-control"
                         id="inputSearch" placeholder="Your search..." required="">
+                    <script type="text/javascript" src="../static/js/script.js"></script>
                 </fieldset>
             </div>
         </div>

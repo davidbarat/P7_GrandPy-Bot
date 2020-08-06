@@ -5,6 +5,7 @@ import json
 import requests
 from stop_words import stops
 from boto.s3.connection import S3Connection
+import wikipedia
 
 
 class ApiGoogle():
@@ -25,13 +26,22 @@ class ApiGoogle():
             self.api_google_key)
     
         self.response_json = self.response.json()
-        self.lat = self.response_json['results'][0]['geometry']['location']['lat']
-        self.lng = self.response_json['results'][0]['geometry']['location']['lng']
-        return(self.lat, self.lng)
+        print(self.response_json)
+        self.lat = str(self.response_json['results'][0]['geometry']['location']['lat'])
+        self.lng = str(self.response_json['results'][0]['geometry']['location']['lng'])
+        return(self.lat, self.lng, self.api_google_key)
 
 
 class ApiWikipedia():
 
     def __init__(self):
 
-        self.url_wiki = "https"
+        wikipedia.set_lang("fr")  
+
+    def search_api_wikipedia(self, lat, lng):
+
+        self.res_wiki = wikipedia.geosearch(lat, lng)
+        self.summary_wiki = str(wikipedia.summary(self.res_wiki[0], sentences=1))
+        self.summary_wiki_clean = (self.summary_wiki.replace("'", " "))
+        self.url_wiki = wikipedia.page(self.res_wiki[0]).url
+        return(self.summary_wiki_clean, self.url_wiki)

@@ -33,5 +33,7 @@
 
         /*  Google Map */
         .googlemap {
-            height: 50px;
+            background: white;
+            height: 150px;
         }
+    
