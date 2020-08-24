@@ -11,21 +11,27 @@ import wikipedia
 class ApiGoogle():
 
     def __init__(self):
-    
+        
+        self.url = "https://maps.googleapis.com/maps/api/geocode/json?"
+
+
+    def getKey(self):
+
         if 'api_google_key' in os.environ:
             self.api_google_key = os.environ['api_google_key']
         else:
             self.api_google_key = S3Connection(os.environ['api_google_key'])
-        
-        self.url = "https://maps.googleapis.com/maps/api/geocode/json?"
+
+        return(self.api_google_key)
 
     def search_api_google(self, search_post):
 
         self.response = requests.get(
-            self.url + "address=" + str(search_post) + "&key=" + 
+            self.url + "address=" + str(search_post) + "language=fr" + "&key=" + 
             self.api_google_key)
-    
+        print('search post ' + search_post)
         self.response_json = self.response.json()
+        print('response from google')
         print(self.response_json)
         self.lat = str(self.response_json['results'][0]['geometry']['location']['lat'])
         self.lng = str(self.response_json['results'][0]['geometry']['location']['lng'])

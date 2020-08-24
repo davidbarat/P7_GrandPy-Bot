@@ -1,77 +1,91 @@
-fetch(`http://localhost:5000/search`, {
-        method: "POST",
-        credentials: "omit",
-        dataType: 'json',
-        cache: "no-cache",
-        headers: new Headers({
-                "content-type": "application/json"
-        })
-})
-        .then(function (response) {
-                if (response.status !== 200) {
-                        console.log(`Looks like there was a problem. Status code: ${response.status}`);
-                        console.log(response)
-                        return;
+function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse) {
+        let codeBlock = '<div class="content">';
+        let searchBlock = "";
+        for (let i = 0; i < searchResponse.length; i++) {
+                if (searchResponse.length == 1) {
+                        searchBlock += '<div> Ma recherche : ' + searchResponse[i] + '<br> </div>';
+                } else {
+                        searchBlock += '<div> Mes recherches : ' + searchResponse[i] + '<br> </div>';
                 }
-                response.json().then(function (data) {
-                        console.log(data);
-                        initMap(data);
-                });
-        })
-        .catch(function (error) {
-                console.log("Fetch error: " + error);
-        });
+        }
+        document.getElementById("search").innerHTML = searchBlock;
+        let urlMapBlock = '<script defer src="https://maps.googleapis.com/maps/api/js?key=' + keyResponse + '&callback=initMap"></script>';
+        console.log(summaryResponse);
+        console.log(codeBlock);
+        console.log(urlMapBlock);
+        document.getElementById("response").innerHTML = codeBlock;
+        document.getElementById("script").innerHTML = urlMapBlock;
+        document.getElementById("summary").innerHTML = 'Grandpy : Bien sûr mon poussin ! La voici :' + summaryResponse;
+        //await sleep(3);
+        document.getElementById("relou").innerHTML = 'Grandpy : Mais t ai - je déjà raconté l histoire de ce quartier qui m a vu en culottes courtes ? ' + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
 
+}
 
-function initMap() {
+function initMap(latResponse, lngResponse) {
+
         let map;
-        console.log("initMap");
-        //let obj = data;
-        //console.log("obj" + obj)
-        //console.log(JSON.parse('{ dict_response_dump | tojson | safe }'));
-        //let varResponse = JSON.parse('{"search": "Ecouen", "lat": "49.018834", "lng": "2.378926", "summary": "Le château d Écouen est un château du XVIe siècle, situé dans le Val-d Oise, qui abrite depuis 1977 le musée national de la Renaissance.", "url": "https://fr.wikipedia.org/wiki/Ch%C3%A2teau_d%27%C3%89couen"}')
-        //let varResponse = JSON.parse('{{ dict_response_dump | tojson}}');
-        //let obj = JSON.parse('{"firstName":"John", "lastName":"Doe"}');
-        //console.log(varResponse);
-        //let latResponse = parseFloat(varResponse.lat);
-        //let lngResponse = parseFloat(varResponse.lng);
-        //console.log(lat);
         map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 49.030343, lng: 2.326213 },
+                center: { lat: latResponse, lng: lngResponse },
                 zoom: 14
         });
         console.log("google map function");
         var main_marker = new google.maps.Marker({
-                position: new google.maps.LatLng(49.018834, 2.378926),
+                position: new google.maps.LatLng(latResponse, lngResponse),
                 map: map
         })
+
 }
-
-
 function Search() {
         console.log("methode search")
+        document.getElementsByTagName('body')[0].style.cursor = 'wait'; //sablier
         var data = $("#inputSearch").val();
-        $.ajax({
-                type: "POST",
-                url: "search",
-                cache: false,
-                data: data,
-                dataType: 'text',
-                success: function (data) {
-                        //initMap();
-                        console.log("success")
-                },
-                error: function (error) {
-                        console.log("error")
-                }
-        });
+        fetch(`http://127.0.0.1:5000/search`,
+                {
+                        method: 'POST',
+                        mode: 'cors',
+                        credentials: 'include',
+                        cache: 'no-cache',
+                        body: data,
+                        headers: {
+                                "Content-Type": "application/json",
+                                'Origin': 'http://127.0.0.1:5000/search',
+                                'Access-Control-Allow-Credentials': true,
+                                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/search'
+
+                        },
+                })
+
+                .then(function (response) {
+                        if (response.status !== 200) {
+                                console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                                console.log(response)
+                                return;
+                        }
+                        response.text().then(function (data) {
+                                console.log('dans le fetch')
+                                console.log(data);
+                                let varResponse = JSON.parse(data);
+                                let latResponse = parseFloat(varResponse.lat);
+                                let lngResponse = parseFloat(varResponse.lng);
+                                let keyResponse = varResponse.key;
+                                let summaryResponse = varResponse.summary;
+                                let searchResponse = varResponse.search;
+                                let urlResponse = varResponse.url;
+                                addBlock(keyResponse, summaryResponse, urlResponse, searchResponse);
+                                initMap(latResponse, lngResponse);
+                                document.getElementsByTagName('body')[0].style.cursor = 'default' //fleche classique
+                        });
+                })
+                .catch(function (error) {
+                        console.log("Fetch error: " + error);
+                });
         console.log(data);
         return data;
 }
 
 function checkEnter(e) {
         var characterCode
-
+        e.preventDefault()
         if (e && e.which) { //if which property of event object is supported (NN4)
                 e = e
                 characterCode = e.which //character code is contained in NN4's which property
@@ -83,11 +97,9 @@ function checkEnter(e) {
 
         if (characterCode == 13) {
                 document.forms[0].submit()
+                console.log('submit')
                 Search();
                 return false
-        }
-        else {
-                return true
         }
 
 }

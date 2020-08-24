@@ -10,43 +10,40 @@ import json
 import jinja2
 from flask_cors import CORS, cross_origin
 
-
 app = Flask(__name__)
 CORS(app)
+my_apigoogle = ApiGoogle()
+apiKey = my_apigoogle.getKey()
+list_search = []
 
-dict_response = {}
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/')
 def index():
-    return render_template('index.html', dict_response = dict_response)
+    return render_template('index.html', key=apiKey)
 
-@app.route('/search', methods=['GET','POST'])
+@app.route('/search', methods=['POST'])
 def search():
-    my_apigoogle = ApiGoogle()
-    my_apiwiki = ApiWikipedia()
-    myparser = Parser()
-
-    if request.method == "POST":
+    dict_response = {}
+    # dict_response["search"] = [' ']
+    search_post = request.get_data()
+    clean_search_post = search_post.decode('utf-8')
+    if clean_search_post and request.method == "POST":
+        my_apiwiki = ApiWikipedia()
+        myparser = Parser()
         clean_data = ''
-        search_post = request.get_data()
-        clean_search_post = search_post.decode('ascii')
-        dict_response["search"] = clean_search_post
-        
-        clean_data = myparser.delete_stopwords(search_post.decode('ascii'))
-        # a revoir moche le [0]
+        search_post_str = search_post.decode('utf-8')
+        list_search.append(search_post_str)
+        dict_response["search"] = list_search
+        print(list_search)
+        clean_data = myparser.delete_stopwords(search_post.decode('utf-8'))
+        clean_data_string = ' '.join(clean_data)
         dict_response["lat"], dict_response["lng"], dict_response["key"] = my_apigoogle.search_api_google(
-            clean_data[0])
-        
+            clean_data_string)
         dict_response["summary"], dict_response["url"] = my_apiwiki.search_api_wikipedia(
             dict_response["lat"], dict_response["lng"])
         dict_response_dump = json.dumps(dict_response, ensure_ascii=False)
-        # return render_template('index.html', dict_response_dump=dict_response_dump)
         print(dict_response_dump)
-        return jsonify(dict_response_dump)
-
-    return render_template('index.html', dict_response = dict_response)
-
+        return jsonify(dict_response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.run(debug=True, use_reloader=False)

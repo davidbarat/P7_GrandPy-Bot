@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="../static/css/mycss.css">
 </head>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../static/js/script.js"></script>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=API&callback=initMap">
-</script>
+<div id="script">
+    <script src="../static/js/script.js"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap"></script>
+</div>
+
 
 <body>
     <div class="header">
@@ -26,21 +28,31 @@
             </div>
         </div>
     </div>
-    <div class="googlemap">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="map" class="googlemap"></div>
-            </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div id="response" class="content"></div>
+            <p>
+                <span id="search"></span> <br>
+                <span id="summary"></span> <br>
+                <span id="relou"></span> <br>
+            </p>
+            <div id="response" class="content"></div>
+        </div>
+
+
+        <div class="col-md-5">
+            <div id="map" class="googlemap"></div>
         </div>
     </div>
 
-    <form id="response" onsubmit="return false">
+
+    <form id=" response" onsubmit="Search();return false;" action='#' method='GET'>
         <div class="row">
             <div class="col-md-4">
                 <fieldset>
-                    <input name="inputSearch" type="text" onKeyPress="checkEnter(event);" class=" form-control"
-                        id="inputSearch" placeholder="Your search..." required="">
-                    <script type="text/javascript" src="../static/js/script.js"></script>
+                    <input name="inputSearch" type="text" class=" form-control" id="inputSearch"
+                        placeholder="Your search..." required="">
                 </fieldset>
             </div>
         </div>

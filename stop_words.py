@@ -10,5 +10,5 @@ stops = [
     'tellement','tels','tes','ton','tous','tout','trop','très','tu','voient','vont','votre','vous',
     'vu','ça','étaient','état','étions','été','être','je','tu','cherche',"l'adresse",'papy','grandpy',
     'accord','car','trouve','lieu','endroit','question','loin','?','.','!','/','hello','hey','mec',
-    'est-ce',"d'","l'",'salut','connais','connait','adresse'
+    'est-ce',"d'","l'",'salut','connais','connait','adresse','cherche'
 ]
