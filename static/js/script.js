@@ -1,11 +1,11 @@
-function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse) {
+function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, addressResponse) {
         let codeBlock = '<div class="content">';
         let searchBlock = "";
         for (let i = 0; i < searchResponse.length; i++) {
                 if (searchResponse.length == 1) {
                         searchBlock += '<div> Ma recherche : ' + searchResponse[i] + '<br> </div>';
                 } else {
-                        searchBlock += '<div> Mes recherches : ' + searchResponse[i] + '<br> </div>';
+                        searchBlock += '<div style=“overflow-y: auto; overflow-x: none;”"> ' + searchResponse[i] + '<br> </div>';
                 }
         }
         document.getElementById("search").innerHTML = searchBlock;
@@ -15,7 +15,7 @@ function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse) {
         console.log(urlMapBlock);
         document.getElementById("response").innerHTML = codeBlock;
         document.getElementById("script").innerHTML = urlMapBlock;
-        document.getElementById("summary").innerHTML = 'Grandpy : Bien sûr mon poussin ! La voici :' + summaryResponse;
+        document.getElementById("summary").innerHTML = 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse;
         //await sleep(3);
         document.getElementById("relou").innerHTML = 'Grandpy : Mais t ai - je déjà raconté l histoire de ce quartier qui m a vu en culottes courtes ? ' + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
 
@@ -39,7 +39,7 @@ function Search() {
         console.log("methode search")
         document.getElementsByTagName('body')[0].style.cursor = 'wait'; //sablier
         var data = $("#inputSearch").val();
-        fetch(`http://127.0.0.1:5000/search`,
+        fetch(`*/search`,
                 {
                         method: 'POST',
                         mode: 'cors',
@@ -48,7 +48,7 @@ function Search() {
                         body: data,
                         headers: {
                                 "Content-Type": "application/json",
-                                'Origin': 'http://127.0.0.1:5000/search',
+                                'Origin': '*/search',
                                 'Access-Control-Allow-Credentials': true,
                                 'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/search'
 
@@ -71,7 +71,8 @@ function Search() {
                                 let summaryResponse = varResponse.summary;
                                 let searchResponse = varResponse.search;
                                 let urlResponse = varResponse.url;
-                                addBlock(keyResponse, summaryResponse, urlResponse, searchResponse);
+                                let addressResponse = varResponse.address;
+                                addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, addressResponse);
                                 initMap(latResponse, lngResponse);
                                 document.getElementsByTagName('body')[0].style.cursor = 'default' //fleche classique
                         });

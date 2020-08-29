@@ -33,6 +33,12 @@
             /*overflow:scroll;*/
         }
 
+        .contentscroll {
+            padding: 20px;
+            font-size: 12px;
+            overflow-y:auto;
+        }
+        
         /*  Google Map */
         .googlemap {
             background: white;

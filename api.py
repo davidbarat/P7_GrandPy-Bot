@@ -27,7 +27,7 @@ class ApiGoogle():
     def search_api_google(self, search_post):
 
         self.response = requests.get(
-            self.url + "address=" + str(search_post) + "language=fr" + "&key=" + 
+            self.url + "address=" + str(search_post) + "&language=fr" + "&key=" + 
             self.api_google_key)
         print('search post ' + search_post)
         self.response_json = self.response.json()
@@ -35,7 +35,13 @@ class ApiGoogle():
         print(self.response_json)
         self.lat = str(self.response_json['results'][0]['geometry']['location']['lat'])
         self.lng = str(self.response_json['results'][0]['geometry']['location']['lng'])
-        return(self.lat, self.lng, self.api_google_key)
+        self.formatted_address = str(self.response_json['results'][0]['formatted_address'])
+
+        return(
+            self.lat, 
+            self.lng, 
+            self.api_google_key,
+            self.formatted_address)
 
 
 class ApiWikipedia():

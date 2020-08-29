@@ -37,7 +37,7 @@ def search():
         print(list_search)
         clean_data = myparser.delete_stopwords(search_post.decode('utf-8'))
         clean_data_string = ' '.join(clean_data)
-        dict_response["lat"], dict_response["lng"], dict_response["key"] = my_apigoogle.search_api_google(
+        dict_response["lat"], dict_response["lng"], dict_response["key"], dict_response["address"] = my_apigoogle.search_api_google(
             clean_data_string)
         dict_response["summary"], dict_response["url"] = my_apiwiki.search_api_wikipedia(
             dict_response["lat"], dict_response["lng"])
