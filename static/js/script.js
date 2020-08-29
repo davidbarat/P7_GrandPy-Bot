@@ -39,7 +39,7 @@ function Search() {
         console.log("methode search")
         document.getElementsByTagName('body')[0].style.cursor = 'wait'; //sablier
         var data = $("#inputSearch").val();
-        fetch(`*/search`,
+        fetch('/search',
                 {
                         method: 'POST',
                         mode: 'cors',
@@ -48,10 +48,8 @@ function Search() {
                         body: data,
                         headers: {
                                 "Content-Type": "application/json",
-                                'Origin': '*/search',
                                 'Access-Control-Allow-Credentials': true,
-                                'Access-Control-Allow-Origin': 'http://127.0.0.1:5000/search'
-
+                                'Access-Control-Allow-Origin': '/search'
                         },
                 })
 
