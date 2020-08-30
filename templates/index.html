@@ -30,31 +30,28 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8">
-            <div id="response"></div>
+        <div class="col-md-6" style="overflow-y: scroll ;max-height: 200px;">
+            <span id="searchs"></span>
             <p>
-                <span id="search" class="contentscroll"></span><br>
-            </p>
-            <div id="response" class="content"></div>
-            <p><span id="summary"></span>
+                <span id="search"></span>
+                <span id="summary"></span>
                 <span id="relou"></span>
             </p>
-
         </div>
-
-
-        <div class="col-md-5">
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <div id="map" class="googlemap"></div>
         </div>
     </div>
 
 
-    <form id=" response" onsubmit="Search();return false;" action='#' method='GET'>
+    <form id=" response" onsubmit="Search();return false;" action=' #' method='GET'>
         <div class="row">
             <div class="col-md-4">
                 <fieldset>
                     <input name="inputSearch" type="text" class=" form-control" id="inputSearch"
-                        placeholder="Your search..." required="">
+                        placeholder="What is your request ?" required="">
                 </fieldset>
             </div>
         </div>

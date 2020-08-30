@@ -1,24 +1,27 @@
 function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, addressResponse) {
-        let codeBlock = '<div class="content">';
         let searchBlock = "";
+        if (searchResponse.length > 1) {
+                let severalSearch = 'Mes recherches : '
+                document.getElementById("searchs").innerHTML = severalSearch;
+
+        }
+        if (searchResponse.length > 10) {
+                let severalSearch = "Tu crois pas que t'abuses la, plus de 10 recherches : "
+                document.getElementById("searchs").innerHTML = severalSearch;
+
+        }
         for (let i = 0; i < searchResponse.length; i++) {
                 if (searchResponse.length == 1) {
-                        searchBlock += '<div> Ma recherche : ' + searchResponse[i] + '<br> </div>';
+                        searchBlock += 'Ma recherche : ' + searchResponse[i] + '<br>';
                 } else {
                         searchBlock += '<div style=“overflow-y: auto; overflow-x: none;”"> ' + searchResponse[i] + '<br> </div>';
                 }
         }
         document.getElementById("search").innerHTML = searchBlock;
         let urlMapBlock = '<script defer src="https://maps.googleapis.com/maps/api/js?key=' + keyResponse + '&callback=initMap"></script>';
-        console.log(summaryResponse);
-        console.log(codeBlock);
-        console.log(urlMapBlock);
-        document.getElementById("response").innerHTML = codeBlock;
         document.getElementById("script").innerHTML = urlMapBlock;
-        document.getElementById("summary").innerHTML = 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse;
-        //await sleep(3);
-        document.getElementById("relou").innerHTML = 'Grandpy : Mais t ai - je déjà raconté l histoire de ce quartier qui m a vu en culottes courtes ? ' + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
-
+        document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse + '<br> ';
+        document.getElementById("relou").innerHTML = "Grandpy : Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
 }
 
 function initMap(latResponse, lngResponse) {
