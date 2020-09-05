@@ -16,7 +16,6 @@ my_apigoogle = ApiGoogle()
 apiKey = my_apigoogle.getKey()
 list_search = []
 
-
 @app.route('/')
 def index():
     return render_template('index.html', key=apiKey)
@@ -33,7 +32,6 @@ def search():
         search_post_str = search_post.decode('utf-8')
         list_search.append(search_post_str)
         dict_response["search"] = list_search
-        print(list_search)
         clean_data = myparser.delete_stopwords(
             search_post.decode('utf-8'))
         clean_data_string = ' '.join(clean_data)
@@ -43,8 +41,6 @@ def search():
                     clean_data_string)
             dict_response["summary"], dict_response["url"] = my_apiwiki.search_api_wikipedia(
                 dict_response["lat"], dict_response["lng"])
-            dict_response_dump = json.dumps(dict_response, ensure_ascii=False)
-            print(dict_response_dump)
             return jsonify(dict_response)
         else:
             dict_response["address"] = 'KO'
