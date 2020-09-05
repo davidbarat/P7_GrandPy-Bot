@@ -33,11 +33,11 @@ function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, add
         let urlMapBlock = '<script defer src="https://maps.googleapis.com/maps/api/js?key=' + keyResponse + '&callback=initMap"></script>';
         document.getElementById("script").innerHTML = urlMapBlock;
         if (addressResponse != 'KO') {
-                document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse + '<br> ';
-                document.getElementById("relou").innerHTML = "Grandpy : Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
+                document.getElementById("summary").innerHTML = '<br> ' + ' Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse + '<br> ';
+                document.getElementById("relou").innerHTML = " Grandpy : Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
         } else {
-                document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Je n ai rien trouvé essaye encore' + '<br>';
-                document.getElementById("relou").innerHTML = "Grandpy : j'attends";
+                document.getElementById("summary").innerHTML = '<br> ' + ' Grandpy : Je n ai rien trouvé essaye encore' + '<br>';
+                document.getElementById("relou").innerHTML = " Grandpy : j'attends";
 
         }
 }
