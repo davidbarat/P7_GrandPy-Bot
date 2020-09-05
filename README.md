@@ -18,7 +18,7 @@ and the url link associated to user search.
 ## class ApiGoogle
 * def getKey:
 	* get api google secret key
-* def search_api_googlee:
+* def search_api_google:
 	* do api call
   * get api response
   * create the dictionnary response
