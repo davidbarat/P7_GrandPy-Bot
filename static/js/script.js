@@ -5,6 +5,18 @@ function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, add
                 document.getElementById("searchs").innerHTML = severalSearch;
 
         }
+
+        if (searchResponse.length == 3) {
+                let severalSearch = "Laisse moi souffler, un peu : "
+                document.getElementById("searchs").innerHTML = severalSearch;
+
+        }
+
+        if (searchResponse.length == 7) {
+                let severalSearch = "Je fatigue, tu me fatigues... : "
+                document.getElementById("searchs").innerHTML = severalSearch;
+
+        }
         if (searchResponse.length > 10) {
                 let severalSearch = "Tu crois pas que t'abuses la, plus de 10 recherches : "
                 document.getElementById("searchs").innerHTML = severalSearch;
@@ -12,7 +24,7 @@ function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, add
         }
         for (let i = 0; i < searchResponse.length; i++) {
                 if (searchResponse.length == 1) {
-                        searchBlock += 'Ma recherche : ' + searchResponse[i] + '<br>';
+                        searchBlock += '<b> Ma recherche : </b>' + searchResponse[i] + '<br>';
                 } else {
                         searchBlock += '<div style=“overflow-y: auto; overflow-x: none;”"> ' + searchResponse[i] + '<br> </div>';
                 }
@@ -20,8 +32,14 @@ function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, add
         document.getElementById("search").innerHTML = searchBlock;
         let urlMapBlock = '<script defer src="https://maps.googleapis.com/maps/api/js?key=' + keyResponse + '&callback=initMap"></script>';
         document.getElementById("script").innerHTML = urlMapBlock;
-        document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse + '<br> ';
-        document.getElementById("relou").innerHTML = "Grandpy : Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
+        if (addressResponse != 'KO') {
+                document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Bien sûr mon poussin ! La voici :' + addressResponse + '<br> ';
+                document.getElementById("relou").innerHTML = "Grandpy : Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? " + summaryResponse + '<br> ' + '<a href=' + urlResponse + ' target="_blank"' + ' > En savoir plus sur Wikipedia</a>';
+        } else {
+                document.getElementById("summary").innerHTML = '<br> ' + 'Grandpy : Je n ai rien trouvé essaye encore' + '<br>';
+                document.getElementById("relou").innerHTML = "Grandpy : j'attends";
+
+        }
 }
 
 function initMap(latResponse, lngResponse) {

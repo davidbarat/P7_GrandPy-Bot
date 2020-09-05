@@ -4,7 +4,6 @@ import cgi
 import json
 import requests
 from stop_words import stops
-from boto.s3.connection import S3Connection
 import wikipedia
 
 
@@ -14,13 +13,10 @@ class ApiGoogle():
         
         self.url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?"
         
-
     def getKey(self):
 
         if 'api_google_key' in os.environ:
             self.api_google_key = os.environ['api_google_key']
-        else:
-            self.api_google_key = S3Connection(os.environ['api_google_key'])
 
         return(self.api_google_key)
 
@@ -34,14 +30,11 @@ class ApiGoogle():
 
         print('search post ' + search_post)
         self.response_json = self.response.json()
-        print('response from google')
-        print(self.response_json)
         if self.response_json['status'] != 'OK':
-            return(0,0, self.api_google_key, )
+            return(False)
 
         else:
             self.best_resultat = self.response_json['candidates'][-1]
-            print(self.best_resultat)
             self.lat = str(
                 self.best_resultat['geometry']['location']['lat'])
             self.lng = str(
