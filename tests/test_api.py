@@ -11,18 +11,18 @@ import re
 def test_search_api_google():
     api_gmap_key = (os.environ['api_google_key'])
     url_maps = 'https://www.google.com/maps/search/?api=1&'
-    parameters = 'ecouen'
-    url_maps_json = 'https://maps.googleapis.com/maps/api/geocode/json?address='
-    response = requests.get(url_maps + parameters)
+    search = 'ecouen'
+    parameters = 'findplacefromtext/json?input=' + search + '&inputtype=textquery&fields=formatted_address,geometry,rating'
+    # url_maps_json = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+    url_place = "https://maps.googleapis.com/maps/api/place/"
+    response = requests.get(url_maps + search)
     assert response.status_code == 200
     response = requests.get(
-         url_maps_json + parameters + '&key=' + api_gmap_key
+         url_place + parameters + '&key=' + api_gmap_key
          )
     response_body = response.json()
     assert response_body[
-         "results"][0]["address_components"][0]["short_name"] == 'Écouen'
-    
-    # print(response.json())
+         'candidates'][0]['formatted_address'] == '95440 Écouen, France'
 
 def test_search_api_wikipedia():
     lat_ecouen = 49.018834

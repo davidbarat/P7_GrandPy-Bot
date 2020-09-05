@@ -1,7 +1,7 @@
 function addBlock(keyResponse, summaryResponse, urlResponse, searchResponse, addressResponse) {
         let searchBlock = "";
         if (searchResponse.length > 1) {
-                let severalSearch = 'Mes recherches : '
+                let severalSearch = '<b> Mes recherches : </b>'
                 document.getElementById("searchs").innerHTML = severalSearch;
 
         }
@@ -63,7 +63,6 @@ function Search() {
                                 return;
                         }
                         response.text().then(function (data) {
-                                console.log('dans le fetch')
                                 console.log(data);
                                 let varResponse = JSON.parse(data);
                                 let latResponse = parseFloat(varResponse.lat);

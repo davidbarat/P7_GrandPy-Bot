@@ -12,8 +12,8 @@ class ApiGoogle():
 
     def __init__(self):
         
-        self.url = "https://maps.googleapis.com/maps/api/geocode/json?"
-
+        self.url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?"
+        
 
     def getKey(self):
 
@@ -27,17 +27,29 @@ class ApiGoogle():
     def search_api_google(self, search_post):
 
         self.response = requests.get(
-            self.url + "address=" + str(search_post) + "&language=fr" + "&key=" + 
+            self.url + "input=" + str(search_post)
+            + "&inputtype=textquery&fields=formatted_address,geometry,rating" +
+            "&key=" +
             self.api_google_key)
+
         print('search post ' + search_post)
         self.response_json = self.response.json()
         print('response from google')
         print(self.response_json)
-        self.lat = str(self.response_json['results'][0]['geometry']['location']['lat'])
-        self.lng = str(self.response_json['results'][0]['geometry']['location']['lng'])
-        self.formatted_address = str(self.response_json['results'][0]['formatted_address'])
+        if self.response_json['status'] != 'OK':
+            return(0,0, self.api_google_key, )
 
-        return(
+        else:
+            self.best_resultat = self.response_json['candidates'][-1]
+            print(self.best_resultat)
+            self.lat = str(
+                self.best_resultat['geometry']['location']['lat'])
+            self.lng = str(
+                self.best_resultat['geometry']['location']['lng'])
+            self.formatted_address = str(
+                self.best_resultat['formatted_address'])
+
+            return(
             self.lat, 
             self.lng, 
             self.api_google_key,
@@ -53,7 +65,8 @@ class ApiWikipedia():
     def search_api_wikipedia(self, lat, lng):
 
         self.res_wiki = wikipedia.geosearch(lat, lng)
-        self.summary_wiki = str(wikipedia.summary(self.res_wiki[0], sentences=1))
+        self.summary_wiki = str(
+            wikipedia.summary(self.res_wiki[0], sentences=1))
         self.summary_wiki_clean = (self.summary_wiki.replace("'", " "))
         self.url_wiki = wikipedia.page(self.res_wiki[0]).url
         return(self.summary_wiki_clean, self.url_wiki)
