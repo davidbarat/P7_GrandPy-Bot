@@ -10,7 +10,7 @@
             text-align: center;
             background: #283747;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         /* Footer */
@@ -19,7 +19,7 @@
             text-align: center;
             background: #283747;
             color: white;
-			font-size: 15px;
+			font-size: 14px;
 			position: fixed;
   			left: 0;
   			bottom: 0;
@@ -43,6 +43,6 @@
         /*  Google Map */
         .googlemap {
             background: white;
-            height: 200px;
+            height: 150px;
         }
     
